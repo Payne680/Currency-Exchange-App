@@ -5,7 +5,9 @@ function Ui() {
   return (
     <div className="container">
       <div className="header">
-        <h1>Currency Exchange</h1>
+        <h1>
+          Currency <i className="fa-solid fa-money-bill-transfer" /> Exchange
+        </h1>
       </div>
       <div className="date">2023-02-14</div>
       <ul className="currencies">
@@ -140,7 +142,7 @@ function Ui() {
           <span className="close">&times;</span>
         </li>
       </ul>
-      <button type="button" className="add-currency-btn open">
+      <button type="button" className="add-currency-btn">
         <i className="fas fa-long-arrow-alt-left" />
         Add Currency
       </button>

@@ -10,7 +10,8 @@ html {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background-color: grey;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+  url("https://i.stack.imgur.com/yDr7J.jpg");  
   color: #fff;
 }
 
