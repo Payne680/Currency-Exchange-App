@@ -2,53 +2,75 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import './Ui.css';
-import axios from 'axios';
 
 function Ui() {
   const [initialState, setState] = useState({
     currencies: ['USD', 'XAF', 'EUR', 'AUD', 'GBP', 'CAD'],
     base: 'USD',
-    amount: '',
     convertTo: 'XAF',
     result: '',
     date: '',
   });
 
-  const { currencies, base, amount, convertTo, result, date } = initialState;
+  const [api, setApi] = useState([]);
+  const [amount, setAmount] = useState();
+  const [apiDate, setApiDate] = useState();
+  const [apiCurrency, setCurrency] = useState('XAF');
+  const [apiCurrency2, setCurrency2] = useState('USD');
+
+  let ans;
+
+  const { currencies, base, convertTo, result, date } = initialState;
+  const getCurrencyConvertor = async () => {
+    const response = await fetch(
+      `https://api.fastforex.io/fetch-all?api_key=c5e45c8952-cc98741f07-rptbde`
+    );
+
+    // console.log('response==>', response);
+    const data = await response.json();
+    return [setApi(data.results), setApiDate(data.updated)];
+
+    // const result = (response.data.results[convertTo] * amount).toFixed(2);
+  };
   useEffect(() => {
-    if (amount === amount.isNaN) {
-      return;
-    }
-    const getCurrencyConvertor = async () => {
-      const response = await axios.get(
-        `https://api.fastforex.io/fetch-all?api_key=c5e45c8952-cc98741f07-rptbde`
-      );
-      // console.log('response==>', response);
-      const date = response.data.updated;
-      const result = (response.data.results[convertTo] * amount).toFixed(2);
-      setState({
-        ...initialState,
-        result,
-        date,
-      });
-    };
     getCurrencyConvertor();
-  }, [amount, base, convertTo]);
+  }, []);
+
+  if (apiCurrency === 'XAF') {
+    ans = (api.XAF * amount).toFixed(3);
+  } else if (apiCurrency === 'USD') {
+    ans = (api.USD * amount).toFixed(3);
+  } else if (apiCurrency === 'EUR') {
+    ans = (api.EUR * amount).toFixed(3);
+  } else if (apiCurrency === 'AUD') {
+    ans = (api.AUD * amount).toFixed(3);
+  } else if (apiCurrency === 'GBP') {
+    ans = (api.GBP * amount).toFixed(3);
+  } else {
+    ans = (api.CAD * amount).toFixed(3);
+  }
 
   const onChangeInput = (e) => {
     setState({
       ...initialState,
-      amount: e.target.value,
       result: null,
       date: null,
     });
+    setAmount(e.target.value);
   };
   const handleSelect = (e) => {
     setState({
       ...initialState,
-      [e.target.name]: e.target.value,
       result: null,
     });
+    setCurrency(e.target.value);
+  };
+  const handleSelect2 = (e) => {
+    setState({
+      ...initialState,
+      result: null,
+    });
+    setCurrency2(e.target.value);
   };
   const handleSwap = (e) => {
     e.preventDefault(0);
@@ -65,26 +87,25 @@ function Ui() {
         <div className="card">
           <h1>CURRENCY EXCHANGE</h1>
           <h5>
-            {amount} {base} is equivelent to
+            {amount} {apiCurrency2} is equivelent to
           </h5>
           <h3>
-            {amount === '' ? '0' : result === null ? 'Loading...' : result}
-            {convertTo}
+            {amount === 0 ? '0' : result === null ? ans : result}
+            {apiCurrency}
           </h3>
-          <p>As of {amount === '' ? '' : date === null ? '' : date}</p>
+          <p>As of {amount === 0 ? '' : date === null ? apiDate : date}</p>
           <div className="row">
             <div className="col">
-              <form className="mb-4">
+              <div className="mb-4">
                 <input
                   type="number"
-                  value={amount}
                   onChange={onChangeInput}
                   className="form-control"
                 />
                 <select
                   name="base"
-                  value={base}
-                  onChange={handleSelect}
+                  value={apiCurrency2}
+                  onChange={handleSelect2}
                   className="form-controlz"
                 >
                   {currencies.map((currency) => (
@@ -93,22 +114,16 @@ function Ui() {
                     </option>
                   ))}
                 </select>
-              </form>
-              <form className="formz">
+              </div>
+              <div className="formz">
                 <input
                   disabled
-                  value={
-                    amount === ''
-                      ? '0'
-                      : result === null
-                      ? 'Loading....'
-                      : result
-                  }
+                  value={amount === 0 ? '0' : result === null ? ans : result}
                   className="form-controlz"
                 />
                 <select
                   name="convertTo"
-                  value={convertTo}
+                  value={apiCurrency}
                   onChange={handleSelect}
                   className="form-controlz"
                 >
@@ -118,7 +133,7 @@ function Ui() {
                     </option>
                   ))}
                 </select>
-              </form>
+              </div>
             </div>
             <div className="arrow">
               <button type="button" className="swap" onClick={handleSwap}>
