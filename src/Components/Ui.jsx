@@ -83,17 +83,39 @@ function Ui() {
   };
   return (
     <div className="container">
+      <div className="deposit">
+        <div className="wallet">
+          <h3>
+            Wallet:
+            <input
+              disabled
+              className="depo"
+              type="number"
+              placeholder=" 0.000"
+            />
+          </h3>
+        </div>
+        <h3>
+          Deposit:
+          <input className="depo" type="number" placeholder="0.000" />
+        </h3>
+      </div>
       <div className="rowz">
         <div className="card">
-          <h1>CURRENCY EXCHANGE</h1>
-          <h5>
-            {amount} {apiCurrency2} is equivelent to
-          </h5>
-          <h3>
-            {amount === 0 ? '0' : result === null ? ans : result}
-            {apiCurrency}
-          </h3>
-          <p>As of {amount === 0 ? '' : date === null ? apiDate : date}</p>
+          <h1>
+            CURRENCY <i className="fa-sharp fa-solid fa-money-bill-transfer" />{' '}
+            EXCHANGE
+          </h1>
+          <div className="details">
+            <h5>
+              {amount} {apiCurrency2} is equivelent to
+            </h5>
+            <h3>
+              {amount === 0 ? '0' : result === null ? ans : result}
+              {apiCurrency}
+            </h3>
+            <p>As of {amount === 0 ? '' : date === null ? apiDate : date}</p>
+          </div>
           <div className="row">
             <div className="col">
               <div className="mb-4">
@@ -119,7 +141,7 @@ function Ui() {
                 <input
                   disabled
                   value={amount === 0 ? '0' : result === null ? ans : result}
-                  className="form-controlz"
+                  className="form-controlb"
                 />
                 <select
                   name="convertTo"
@@ -142,6 +164,37 @@ function Ui() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="boxes">
+        <div>
+          <h3>
+            USD/
+            <i className="fa-solid fa-dollar-sign" />:
+            <p>Current market value</p>
+            <input
+              disabled
+              className="price"
+              type="number"
+              placeholder=" 0.000"
+            />
+          </h3>
+        </div>
+        <div>
+          <h3>
+            XAF: <p>Current market value</p>
+            <input
+              disabled
+              className="price"
+              type="number"
+              placeholder=" 0.000"
+            />
+          </h3>
+        </div>
+        <h3>
+          EUR/
+          <i className="fa-solid fa-euro-sign" />: <p>Current market value</p>
+          <input disabled className="price" type="number" placeholder="0.000" />
+        </h3>
       </div>
     </div>
   );
