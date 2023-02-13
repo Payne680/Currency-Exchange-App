@@ -24,6 +24,7 @@ h1 {
   display: flex;
   padding: 10px 10px;
   background-color:  rgb(181, 181, 128);
+  border-radius: 20px;
 }
 
 .container {
@@ -57,6 +58,12 @@ h1 {
 .depo {
     padding: 5px;
     margin: 5px;
+}
+.depos {
+    padding: 5px;
+    margin: 5px;
+    background-color:   rgb(181, 181, 128);
+    border-radius: 20px;
 }
 .boxes {
     display: flex;

@@ -97,7 +97,7 @@ function Ui() {
         </div>
         <h3>
           Deposit:
-          <input className="depo" type="number" placeholder="0.000" />
+          <input className="depos" type="number" placeholder="0.000" />
         </h3>
       </div>
       <div className="rowz">
