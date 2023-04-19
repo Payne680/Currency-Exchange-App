@@ -23,7 +23,7 @@ function Ui() {
   const { currencies, base, convertTo, result, date } = initialState;
   const getCurrencyConvertor = async () => {
     const response = await fetch(
-      `https://api.fastforex.io/fetch-all?api_key=c5e45c8952-cc98741f07-rptbde`
+      // `https://api.fastforex.io/fetch-all?api_key=c5e45c8952-cc98741f07-rptbde`
     );
 
     // console.log('response==>', response);
