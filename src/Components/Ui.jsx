@@ -20,18 +20,18 @@ function Ui() {
 
   let ans;
 
-  const { currencies, base, convertTo, result, date } = initialState;
-  const getCurrencyConvertor = async () => {
-    const response = await fetch(
-      // `https://api.fastforex.io/fetch-all?api_key=c5e45c8952-cc98741f07-rptbde`
-    );
+  // const { currencies, base, convertTo, result, date } = initialState;
+  // const getCurrencyConvertor = async () => {
+  //   const response = await fetch(
+  //     // `https://api.fastforex.io/fetch-all?api_key=c5e45c8952-cc98741f07-rptbde`
+  //   );
 
-    // console.log('response==>', response);
-    const data = await response.json();
-    return [setApi(data.results), setApiDate(data.updated)];
+  //   // console.log('response==>', response);
+  //   const data = await response.json();
+  //   return [setApi(data.results), setApiDate(data.updated)];
 
-    // const result = (response.data.results[convertTo] * amount).toFixed(2);
-  };
+  //   // const result = (response.data.results[convertTo] * amount).toFixed(2);
+  // };
   useEffect(() => {
     getCurrencyConvertor();
   }, []);
